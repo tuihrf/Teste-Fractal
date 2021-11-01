@@ -3,11 +3,14 @@ Conjunto de códigos desenvolvidos para o processo seletivo na Fractal
 
 O objetivo do teste era automatizar o download de dados de precipitação da NOAA(NOMADS) usando a ferramenta grib filters, analisando os resultados do modelo em algumas bacias hidrográficas brasileiras e comparando-os com alguns resultados fornecidos.
 
+Apresenta-se os gráficos e figuras obtidos na pasta anexos, assim como os arquivos intermediários mencionados ao longo dos scripts
+
 # Considerações
 Não foi feita a análise usando dados baixados em formato GRIB2 por duas razões:
 1. Não foi encontrado na base de dados da NOAA informações metereológicas que abrangessem dados de precipitação, tendo como base o modelo CFSV2, se limitando a outras variáveis (ver referência 1). Por essa razão, optou-se por usar os dados de precipitação disponibilizados em formato NETCDF4;
-2. Por questões técnicas que ainda estou avaliando, não foi possível instalar algumas dependências importantes para análise dos dados em formato GRIB2, em especial as ferramentas wgrib (da NOAA/NOMADS), pynio e GDAL. Embora o GDAL tenha sudo utilizado, sua execução foi conduziza no ambiente Python do QGIS, onde a biblioteca já estava instalada.
-Apesar disso, apresenta-se o script para download automatizado dos dados GRIB2 usando o Grib Filters da NOAA
+2. Por questões técnicas que ainda estou avaliando, não foi possível instalar algumas dependências importantes para análise dos dados em formato GRIB2, em especial as ferramentas wgrib (da NOAA/NOMADS), pynio e GDAL. Embora o GDAL tenha sudo utilizado, sua execução foi conduziza no ambiente Python do QGIS, onde a biblioteca já estava instalada. Apesar disso, apresenta-se o script para download automatizado dos dados GRIB2 (script 01) usando o Grib Filters da NOAA
+3. A análise dos dados foi feita usando a anomalia, ao invés da precipitação. Não foi encontrado o dado de precipitação base para o modelo CSFV2, apenas a anomalia, e optou-se por converter os dados fornecidos para essa unidade. A comparação dos resultados, nesse caso, indica tendência a maior ou menor chuva em relação a uma precipitação de referência. Os valores absolutos devem ser avaliados com cautela, pois não pode ser feita a verificação dos valores de referência do modelo CFSV2.
+
 
 # Algoritmos (scripts)
 ## 01 - Download automatizado de dados GRIB2 da NOAA/NOMADS
@@ -20,7 +23,20 @@ Os arquivos NETCDF, gerados pelo modelo CFSV2 e disponíveis para download na re
 O arquivo NETCDF foi cortado para caca uma das bacias fornecidas, e convertido para o formato GEOTIFF, mais acessível que o NETCDF
 
 ## 04 - Processamento dos dados de precipitação e conversão em tabelas para cada bacia
-Para comparar com os dados fornecidos, foi fieta a conversão dos dados pluviométricos, separados por bacia no item anterior, para tabelas. Para isso, filtrou-se a média de cada banda de cada bacia, representado a anomalia média na precipitação em cada mês (cada banda representa um mês, de novembro/2021 a abril/2020)
+Para comparar com os dados fornecidos, foi fieta a conversão dos dados pluviométricos, separados por bacia no item anterior, para tabelas. Para isso, filtrou-se a média de cada banda de cada bacia, representado a anomalia média na precipitação em cada mês (cada banda representa um mês, de novembro/2021 a abril/2020). Os dados E1, E2 e E3 representam as médias tendo como base, respectivamente, os dias  1-10, 20-20 e 20-30 do mês. Foi feita a média entre valores para obter o arquivo final.
+
+O passo 4 encerra o pré-processamento dos arquivos vindos da NOAA/NOMADS, tendo finalizada a transformação dos arquivos NETCDF brutos em tabelas para a área de estudo
+
+## 5 - Processamento dos dados fornecidos
+a etapa de ETL dos dados fornecidos visou compatibiliza-los com os da NOAA/NOMADS, a abordagem escolhida sendo gerar uma única tabela para todos os dados. Essa abordagem simplifica o armazenamento das informações e seu uso com a biblitoeca Pandas. Os dados foram convertidos em listas para cada bacia, adicionando-se a informação de ano e mês, para então serem concatenados em uma única tabela.
+
+## 6 - Compatibilização das bases de dados
+Os dados fornecidos e os gerados dos arquivos da NOAA/NOMADS tiveram seus campos e dimensões compatibilizados. Os nomes das colunas passarma a ser "Bacia", "Mes", "Ano", e "Anomalia" ou "Precipitação"
+
+## 7 - Filtra dados para período em comum e plota gráficos
+É feita a filtragem dos dados fornecido para o período de Novembro/2021 - Abril/2022, os 6 meses em comum com os dados da=o modelo CFSV2. É feito o cálculo da anomalia dos dados fornecidos (precipitação mensal - média da precipitação entre 1991 e 2020, mesmo critério sugerido pela NOAA).
+
+# Considerações finais
 
 
 
