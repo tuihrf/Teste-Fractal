@@ -14,11 +14,13 @@ Apesar disso, apresenta-se o script para download automatizado dos dados GRIB2 u
 Tem-se como entrada a data, no formado de string e AAAAMMDD. Realiza-se a tentativa de download para a resolução temoporal de 6 horas do modelo (00, 06, 12 e 18 horas). Salva-se os arquivo os arquivos e imprime mensagens de erro, caso o download não seja bem sucedido, o que usualmente acontece quando o dado não está disponível.
 
 ## 02 - Preparação dos arquivos NETCDF
-Os arquivos NETCDF, gerados pelo modelo CFSV2 e disponíveis para download na referência 3, incluem os dados de precipitação. Baixados manualmente, precisam ser processado antes de ser usados. Nota-se que os arquivos estão na projeção WGS84, em escala global, mas com longitudes na faixa de (0 - 360), e que tem como ponto de longitude zero aquele que deveria ser o -180 na projeção WGS correta. Portanto, transladou-se essas informações em 360 graus para esquerda, usando a biblioteca GDAL.
+Os arquivos NETCDF, gerados pelo modelo CFSV2 e disponíveis para download na referência 3, incluem os dados de precipitação. Baixados manualmente, precisam ser processado antes de ser usados. Nota-se que os arquivos estão na projeção WGS84, em escala global, mas com longitudes na faixa de (0 - 360), e que tem como ponto de longitude zero aquele que deveria ser o -180 na projeção WGS correta. Portanto, transladou-se essas informações em 360 graus para esquerda, usando a biblioteca GDAL. Ilustração na pasta "arquivos_extra"
 
-![alt text](arquivos_extras/figura netcdf.png)
+## 03 - Corte do arquivo NETCDF usando os shapefiles fornecidos
+O arquivo NETCDF foi cortado para caca uma das bacias fornecidas, e convertido para o formato GEOTIFF, mais acessível que o NETCDF
 
-![alt text](https://github.com/[tuihrf]/[Teste-Fractal]/blob/[main]/arquivos_extras/figura netcdf.png?raw=true)
+## 04 - Processamento dos dados de precipitação e conversão em tabelas para cada bacia
+Para comparar com os dados fornecidos, foi fieta a conversão dos dados pluviométricos, separados por bacia no item anterior, para tabelas. Para isso, filtrou-se a média de cada banda de cada bacia, representado a anomalia média na precipitação em cada mês (cada banda representa um mês, de novembro/2021 a abril/2020)
 
 
 
