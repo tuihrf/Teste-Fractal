@@ -20,7 +20,7 @@ Tem-se como entrada a data, no formado de string e AAAAMMDD. Realiza-se a tentat
 Os arquivos NETCDF, gerados pelo modelo CFSV2 e disponíveis para download na referência 3, incluem os dados de precipitação. Baixados manualmente, precisam ser processado antes de ser usados. Nota-se que os arquivos estão na projeção WGS84, em escala global, mas com longitudes na faixa de (0 - 360), e que tem como ponto de longitude zero aquele que deveria ser o -180 na projeção WGS correta. Portanto, transladou-se essas informações em 360 graus para esquerda, usando a biblioteca GDAL. Ilustração na pasta "arquivos_extra"
 
 ## 03 - Corte do arquivo NETCDF usando os shapefiles fornecidos
-O arquivo NETCDF foi cortado para caca uma das bacias fornecidas, e convertido para o formato GEOTIFF, mais acessível que o NETCDF
+O arquivo NETCDF foi cortado para caca uma das bacias fornecidas, e convertido para o formato GEOTIFF, mais acessível que o NETCDF. Os shapefiles fornecidos preciram de pouco processamento, passando apenas por uma conversão de linhas para polígonos nas bacias do Amazonas, Uruguai e Tocantis.
 
 ## 04 - Processamento dos dados de precipitação e conversão em tabelas para cada bacia
 Para comparar com os dados fornecidos, foi fieta a conversão dos dados pluviométricos, separados por bacia no item anterior, para tabelas. Para isso, filtrou-se a média de cada banda de cada bacia, representado a anomalia média na precipitação em cada mês (cada banda representa um mês, de novembro/2021 a abril/2020). Os dados E1, E2 e E3 representam as médias tendo como base, respectivamente, os dias  1-10, 20-20 e 20-30 do mês. Foi feita a média entre valores para obter o arquivo final.
