@@ -28,13 +28,13 @@ Para comparar com os dados fornecidos, foi fieta a conversão dos dados pluviom�
 O passo 4 encerra o pré-processamento dos arquivos vindos da NOAA/NOMADS, tendo finalizada a transformação dos arquivos NETCDF brutos em tabelas para a área de estudo
 
 ## 5 - Processamento dos dados fornecidos
-a etapa de ETL dos dados fornecidos visou compatibilizá-los com os da NOAA/NOMADS, a abordagem escolhida sendo gerar uma única tabela para todos os dados. Essa abordagem simplifica o armazenamento das informações e seu uso com a biblioteca Pandas. Os dados foram convertidos em listas para cada bacia, adicionando-se a informação de ano e mês, para então serem concatenados em uma única tabela.
+a etapa de ETL dos dados fornecidos visou compatibilizá-los com os da NOAA/NOMADS, a abordagem escolhida sendo gerar uma única tabela para todos os dados. Essa abordagem simplifica o armazenamento das informações e seu uso com a biblioteca Pandas. Os dados foram convertidos em listas para cada bacia, adicionando-se a informação de ano e mês, para então serem concatenados em uma única tabela.n
 
 ## 6 - Compatibilização das bases de dados
 Os dados fornecidos e os gerados dos arquivos da NOAA/NOMADS tiveram seus campos e dimensões compatibilizados. Os nomes das colunas passaram a ser "Bacia", "Mes", "Ano", e "Anomalia" ou "Precipitação"
 
 ## 7 - Filtra dados para período em comum e plota gráficos
-É feita a filtragem dos dados fornecido para o período de Novembro/2021 - Abril/2022, os 6 meses em comum com os dados da=o modelo CFSV2. É feito o cálculo da anomalia dos dados fornecidos (precipitação mensal - média da precipitação entre 1991 e 2020, mesmo critério sugerido pela NOAA).
+É feita a filtragem dos dados fornecido para o período de Novembro/2021 - Abril/2022, os 6 meses em comum com os dados da=o modelo CFSV2. É feito o cálculo da anomalia dos dados fornecidos (precipitação mensal - média da precipitação), tendo como base o período de 1991 a 2020, critério sugerido pela NOAA (ver referencias 3). O método de cálculo é aquele apresentado pela referência 4, tendo como base a média histórica.
 
 # Principais desafios
 O desenvolvimento da solução teve dois principais desafios: a acessibilidade dos dados e instalação dos pacotes.
@@ -55,3 +55,6 @@ Referências:
 1. https://nomads.ncep.noaa.gov/ - acesso ao dados NOAA/NOMADS.
 2. https://nomads.ncep.noaa.gov/cgi-bin/filter_cfs_flx.pl?dir=%2Fcfs.20211031%2F12%2F6hrly_grib_01 - Dados gerados pelo modelo CFSV2 disponíveis para download
 3. https://www.cpc.ncep.noaa.gov/products/CFSv2/CFSv2_body.html - Acesso aos dados de precipitação do modelo CFSV2
+4. https://cds.climate.copernicus.eu/toolbox/doc/how-to/13_how_to_calculate_climatologies_and_anomalies/13_how_to_calculate_climatologies_and_anomalies.html - teoria das anomalias
+
+
