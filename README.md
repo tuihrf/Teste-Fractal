@@ -16,6 +16,11 @@ Tem-se como entrada a data, no formado de string e AAAAMMDD. Realiza-se a tentat
 ## 02 - Preparação dos arquivos NETCDF
 Os arquivos NETCDF, gerados pelo modelo CFSV2 e disponíveis para download na referência 3, incluem os dados de precipitação. Baixados manualmente, precisam ser processado antes de ser usados. Nota-se que os arquivos estão na projeção WGS84, em escala global, mas com longitudes na faixa de (0 - 360), e que tem como ponto de longitude zero aquele que deveria ser o -180 na projeção WGS correta. Portanto, transladou-se essas informações em 360 graus para esquerda, usando a biblioteca GDAL.
 
+![alt text](arquivos_extras/figura netcdf.png)
+
+![alt text](https://github.com/[tuihrf]/[Teste-Fractal]/blob/[main]/arquivos_extras/figura netcdf.png?raw=true)
+
+
 
 Referências:
 1. https://nomads.ncep.noaa.gov/ - acesso ao dados NOAA/NOMADS.
